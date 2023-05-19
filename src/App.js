@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Reset from "./pages/Reset";
+import Home from "./pages/Landing";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import UserContext from "./context/UserContext";
+import NavBar from "./components/NavBar";
+import DashboardWrapper from "./pages/DashboardWrapper";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const d = JSON.parse(localStorage.getItem("user-data"));
+  const t = localStorage.getItem("auth-token");
+
+  const [userData, setUserData] = useState({
+    token: t,
+    user: d,
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <UserContext.Provider value={{ userData, setUserData }}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/dashboard" element={<DashboardWrapper />} />
+        </Routes>
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </UserContext.Provider>
+    </BrowserRouter>
   );
 }
 
