@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
-import Card from "../components/QuestionCard";
+import Card from "../components/Card";
 import Profile from "../components/dashboardComponents";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";

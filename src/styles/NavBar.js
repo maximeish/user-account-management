@@ -27,7 +27,7 @@ export const NavbarLinkWrapper = styled.ul`
 `;
 
 export const NavbarLink = styled.li`
-  margin: .5em;
+  margin: 0.5em;
 `;
 
 export const Logo = styled.h2`

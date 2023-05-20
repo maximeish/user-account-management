@@ -37,7 +37,7 @@ export const StyledLabel = styled.label`
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
-  color: ${(props: any) => (props.invalid ? "red" : "black")};
+  color: ${(props) => (props.invalid ? "red" : "black")};
 `;
 
 export const StyledInput = styled.input`
@@ -62,7 +62,7 @@ export const StyledButton = styled.button`
   &:enabled {
     opacity: 1;
   }
-  opacity: ${(props: any) => (!props.enabled ? 0.5 : 1)};
+  opacity: ${(props) => (!props.enabled ? 0.5 : 1)};
 `;
 
 export const StyledAlert = styled.div`

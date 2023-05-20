@@ -79,7 +79,6 @@ function NavBar() {
                     localStorage.removeItem("auth-token");
                     localStorage.removeItem("refresh-token");
                     localStorage.removeItem("user-data");
-                    localStorage.removeItem("quizzes");
                     window.location.reload();
                   }}
                 >
