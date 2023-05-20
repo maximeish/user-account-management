@@ -7,6 +7,7 @@ export const FormWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 3em;
 `;
 
 export const FormTextWrapper = styled.div`
