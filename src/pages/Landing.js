@@ -12,9 +12,7 @@ const NotLoggedIn = styled.div`
   list-style: none;
 `;
 
-function Home() {
-  console.log("in Home component");
-
+const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,10 +24,10 @@ function Home() {
       <NotLoggedIn>
         Welcome to Z Platform. <br />
         <br />
-        Not logged in. <Link to="/login">Log in</Link>
+        Create an account by <Link to="/signup">signing up.</Link>
       </NotLoggedIn>
     </Div>
   );
-}
+};
 
 export default Home;
