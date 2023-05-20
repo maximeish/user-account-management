@@ -22,7 +22,11 @@ const Home = () => {
   return (
     <Div>
       <NotLoggedIn>
-        Welcome to Z Platform. <br />
+        Welcome to Z Platform.
+        <br />
+        <br />
+        Where Company Z provides you with essential online services.
+        <br />
         <br />
         Create an account by <Link to="/signup">signing up.</Link>
       </NotLoggedIn>
