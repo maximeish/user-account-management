@@ -67,6 +67,7 @@ function Login() {
 
       navigate("/dashboard");
     } catch (err) {
+      setLoading(false);
       console.log(err);
       if (err.response?.status === 401) {
         toast.error(err.response.data.message, {
@@ -80,7 +81,7 @@ function Login() {
           theme: "light",
         });
       } else {
-        toast.error(err.message, {
+        toast.error(err?.message, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,

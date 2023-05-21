@@ -143,7 +143,7 @@ function Signup() {
           required
         />
         {/* <small style={{ marginTop: "-1.5em" }}>
-          {pwdFeedback.suggestions[0] !== undefined &&
+          {pwdFeedback.suggestions !== undefined &&
             pwdFeedback.suggestions[0]}
         </small> */}
         <PasswordStrengthBar

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import UserContext from "../context/UserContext";
 import Card from "../components/Card";
 import Profile from "../components/dashboardComponents";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +12,6 @@ const Wrapper = styled.div`
 `;
 
 function DashboardWrapper() {
-  const { userData } = useContext(UserContext);
-  console.log("received userData", userData);
-
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -15,6 +15,17 @@ import {
   FormTextWrapper,
 } from "../formComponents";
 import UserContext from "../../context/UserContext";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBTypography,
+  MDBIcon,
+} from "mdb-react-ui-kit";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -47,9 +58,10 @@ const Li = styled.li`
 `;
 
 export default function Profile() {
-  const { user, setUser } = useContext(UserContext);
-  const [fn, setFn] = React.useState("");
-  const [ln, setLn] = React.useState("");
+  const { userData } = useContext(UserContext);
+  console.log(userData);
+  const [fn, setFn] = React.useState(userData.user.fn);
+  const [ln, setLn] = React.useState(userData.user.ln);
   const [maritalStatus, setMaritalStatus] = React.useState("");
   const [dob, setDob] = React.useState("");
   const [nationality, setNationality] = React.useState("");
@@ -59,85 +71,154 @@ export default function Profile() {
 
   const [loading, setLoading] = useState(false);
 
+  const handleSubmit = async () => {
+    setLoading(true);
+  };
+
   return (
     <Wrapper>
       <Header>Account Management</Header>
-      <FormWrapper>
-        <StyledForm>
-          <StyledTitle>Z Platform</StyledTitle>
-          <StyledLabel>Profile Picture:</StyledLabel>
-          <StyledInput type="file" onChange={() => {}} required />
-          <StyledLabel>First Name:</StyledLabel>
-          <StyledInput
-            type="text"
-            onChange={(e) => setFn(e.target.value)}
-            value={fn}
-            required
-          />
+      <MDBContainer className="w-80 h-100">
+        <MDBRow className="justify-content-center align-items-center h-100">
+          <MDBCol className="mb-4 mb-lg-0">
+            <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
+              <MDBRow className="g-0">
+                <MDBCol
+                  md="4"
+                  className="gradient-custom text-center p-4"
+                  style={{
+                    borderTopLeftRadius: ".5rem",
+                    borderBottomLeftRadius: ".5rem",
+                  }}
+                >
+                  <MDBCardImage
+                    src="https://logosandtypes.com/wp-content/uploads/2020/08/zipcar.svg"
+                    alt="Avatar"
+                    className="my-5"
+                    style={{ width: "80px" }}
+                    fluid
+                  />
+                  <MDBTypography tag="h5">
+                    {fn} {ln} (Unverified)
+                  </MDBTypography>
+                  <MDBCardText>
+                    <StyledInput type="file" onChange={() => {}} required />
+                  </MDBCardText>
+                  <MDBIcon far icon="edit mb-5" />
+                </MDBCol>
+                <MDBCol md="8">
+                  <MDBCardBody className="p-4">
+                    <MDBTypography tag="h6">Z Platform</MDBTypography>
+                    <hr className="mt-0 mb-4" />
+                    <MDBRow className="pt-1">
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">First Name</MDBTypography>
+                        <StyledInput
+                          type="text"
+                          onChange={(e) => setFn(e.target.value)}
+                          value={fn}
+                          required
+                        />
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Last Name:</MDBTypography>
+                        <MDBCardText className="text-muted">
+                          <StyledInput
+                            type="text"
+                            onChange={(e) => setLn(e.target.value)}
+                            value={ln}
+                            required
+                          />
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBRow className="pt-1">
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Gender</MDBTypography>
+                        <StyledInput
+                          type="text"
+                          onChange={(e) => setGender(e.target.value)}
+                          value={gender}
+                          required
+                        />
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Date of Birth:</MDBTypography>
+                        <MDBCardText className="text-muted">
+                          <StyledInput
+                            type="date"
+                            onChange={(e) => setDob(e.target.value)}
+                            value={dob}
+                            required
+                          />
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBRow className="pt-1">
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Marital Status</MDBTypography>
+                        <StyledInput
+                          type="text"
+                          onChange={(e) => setMaritalStatus(e.target.value)}
+                          value={maritalStatus}
+                          required
+                        />
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Nationality:</MDBTypography>
+                        <MDBCardText className="text-muted">
+                          <StyledInput
+                            type="text"
+                            onChange={(e) => setNationality(e.target.value)}
+                            value={nationality}
+                            required
+                          />
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBRow className="pt-1">
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Document Type</MDBTypography>
+                        <select
+                          type="text"
+                          onChange={(e) => setDocType(e.target.value)}
+                          required
+                        >
+                          <option value="id">ID</option>
+                          <option value="passport">Passport</option>
+                        </select>
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">Document Number:</MDBTypography>
+                        <MDBCardText className="text-muted">
+                          <StyledInput
+                            type="text"
+                            onChange={(e) => setDocNumber(e.target.value)}
+                            value={docNumber}
+                            required
+                          />
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
 
-          <StyledLabel>Last Name:</StyledLabel>
-          <StyledInput
-            type="text"
-            onChange={(e) => setLn(e.target.value)}
-            value={ln}
-            required
-          />
-
-          <StyledLabel>Gender:</StyledLabel>
-          <StyledInput
-            type="text"
-            onChange={(e) => setGender(e.target.value)}
-            value={gender}
-            required
-          />
-          <StyledLabel>Date of Birth:</StyledLabel>
-          <StyledInput
-            type="date"
-            onChange={(e) => setDob(e.target.value)}
-            value={dob}
-            required
-          />
-
-          <StyledLabel>Marital Status:</StyledLabel>
-          <StyledInput
-            type="password"
-            onChange={(e) => setMaritalStatus(e.target.value)}
-            value={maritalStatus}
-            required
-          />
-
-          <StyledLabel>Nationality:</StyledLabel>
-          <StyledInput
-            type="text"
-            onChange={(e) => setNationality(e.target.value)}
-            value={nationality}
-            required
-          />
-
-          <StyledLabel>Document Type:</StyledLabel>
-          <select
-            type="text"
-            onChange={(e) => setDocType(e.target.value)}
-            required
-          >
-            <option value="id">ID</option>
-            <option value="passport">Passport</option>
-          </select>
-
-          <StyledLabel>Document Number:</StyledLabel>
-          <StyledInput
-            type="text"
-            onChange={(e) => setDocNumber(e.target.value)}
-            value={docNumber}
-            required
-          />
-
-          <Div>
-            <StyledButton type="submit">Update</StyledButton>
-            <PuffLoader color="#36d7b7" loading={loading} />
-          </Div>
-        </StyledForm>
-      </FormWrapper>
+                    <MDBRow className="pt-1">
+                      <Div></Div>
+                      <MDBCol size="6" className="mb-3">
+                        <StyledButton onClick={handleSubmit}>
+                          Update
+                        </StyledButton>
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-3">
+                        <PuffLoader color="#36d7b7" loading={loading} />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
+                </MDBCol>
+              </MDBRow>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     </Wrapper>
   );
 }
