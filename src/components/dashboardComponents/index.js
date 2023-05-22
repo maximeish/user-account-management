@@ -68,11 +68,57 @@ export default function Profile() {
   const [docType, setDocType] = React.useState("");
   const [docNumber, setDocNumber] = React.useState("");
   const [gender, setGender] = React.useState("");
+  const [photo, setPhotoUrl] = React.useState(
+    "https://logosandtypes.com/wp-content/uploads/2020/08/zipcar.svg"
+  );
+  const [user, setUser] = React.useState({});
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(async () => {
+    await axios
+      .get(`http://localhost:3000/v1/users/${userData.user.id}`, {
+        headers: {
+          Authorization: `Basic ${userData.token}`,
+        },
+      })
+      .then((r) => {
+        setUser(r.data);
+        console.log(r.data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   const handleSubmit = async () => {
     setLoading(true);
+    const updatedFields = {};
+    const names = [
+      "fn",
+      "ln",
+      "maritalStatus",
+      "dob",
+      "nationality",
+      "docType",
+      "docNumber",
+      "gender",
+    ];
+    [
+      fn,
+      ln,
+      maritalStatus,
+      dob,
+      nationality,
+      docType,
+      docNumber,
+      gender,
+    ].forEach((f, i) => {
+      if (f !== "") {
+        updatedFields[names[i]] = f;
+      }
+    });
+
+    console.log({ ...updatedFields, id: userData.user.id, photo });
+    setLoading(false);
   };
 
   return (
@@ -92,17 +138,26 @@ export default function Profile() {
                   }}
                 >
                   <MDBCardImage
-                    src="https://logosandtypes.com/wp-content/uploads/2020/08/zipcar.svg"
+                    src={photo}
                     alt="Avatar"
                     className="my-5"
-                    style={{ width: "80px" }}
+                    style={{ width: "100px" }}
                     fluid
                   />
                   <MDBTypography tag="h5">
-                    {fn} {ln} (Unverified)
+                    {fn} {ln}
+                    <br />
+                    (Unverified)
                   </MDBTypography>
                   <MDBCardText>
-                    <StyledInput type="file" onChange={() => {}} required />
+                    <StyledInput
+                      type="file"
+                      onChange={(e) => {
+                        console.log("photo updated", e.target.files[0]);
+                        setPhotoUrl(e.target.files[0]);
+                      }}
+                      required
+                    />
                   </MDBCardText>
                   <MDBIcon far icon="edit mb-5" />
                 </MDBCol>
@@ -204,12 +259,12 @@ export default function Profile() {
                     <MDBRow className="pt-1">
                       <Div></Div>
                       <MDBCol size="6" className="mb-3">
+                        <PuffLoader color="#36d7b7" loading={loading} />
+                      </MDBCol>
+                      <MDBCol size="6" className="justify-content-right mb-3">
                         <StyledButton onClick={handleSubmit}>
                           Update
                         </StyledButton>
-                      </MDBCol>
-                      <MDBCol size="6" className="mb-3">
-                        <PuffLoader color="#36d7b7" loading={loading} />
                       </MDBCol>
                     </MDBRow>
                   </MDBCardBody>
