@@ -60,8 +60,8 @@ const Li = styled.li`
 export default function Profile() {
   const { userData } = useContext(UserContext);
   console.log(userData);
-  const [fn, setFn] = React.useState(userData.user.fn);
-  const [ln, setLn] = React.useState(userData.user.ln);
+  const [fn, setFn] = React.useState("");
+  const [ln, setLn] = React.useState("");
   const [maritalStatus, setMaritalStatus] = React.useState("");
   const [dob, setDob] = React.useState("");
   const [nationality, setNationality] = React.useState("");
@@ -84,7 +84,10 @@ export default function Profile() {
       })
       .then((r) => {
         setUser(r.data);
-        console.log(r.data);
+        setFn(r.data.fn);
+        setLn(r.data.ln);
+
+        console.log("receiv", r.data);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -116,6 +119,19 @@ export default function Profile() {
         updatedFields[names[i]] = f;
       }
     });
+
+    await axios
+      .patch(
+        `http://localhost:3000/v1/users/${userData.user.id}`,
+        updatedFields,
+        {
+          headers: {
+            Authorization: `Basic ${userData.token}`,
+          },
+        }
+      )
+      .then()
+      .catch();
 
     console.log({ ...updatedFields, id: userData.user.id, photo });
     setLoading(false);
